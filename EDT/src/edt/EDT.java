@@ -16,7 +16,8 @@ public class EDT {
      */
     public static void main(String[] args) {
         // TODO code application logic 
-        System.out.print("hello");
+        System.out.print("bonjour");
+        
     }
     
 }
