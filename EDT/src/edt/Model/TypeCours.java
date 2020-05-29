@@ -9,20 +9,21 @@ package edt.Model;
  *
  * @author mathi
  */
-public class Promotion {
-    private int id_promo;
+public class TypeCours {
+    private int id;
     private String nom;
     
-    public Promotion(int id_promo, String nom){
+    public TypeCours(int id, String nom){
+        this.id = id;
         this.nom = nom;
     }
-
-    public Promotion() {
-       
+    
+    public TypeCours(){
+        
     }
 
-    public int getId_promo() {
-        return id_promo;
+    public int getId() {
+        return id;
     }
 
     public String getNom() {

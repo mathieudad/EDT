@@ -5,16 +5,19 @@
  */
 package edt.Model;
 
+import edt.Model.DAO.DAOEtudiant;
+import edt.Model.DAO.DAOSalle;
+import edt.Model.DAO.DAOUtilisateur;
 import java.sql.DriverManager;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author mathi
  */
 public class MainModel {
+    
+     
     /**
      * @param args the command line arguments
      */
@@ -30,11 +33,15 @@ public class MainModel {
             
             System.out.println("Connection Established");
             DAOUtilisateur DAOU = new DAOUtilisateur(con);
-            
-            Utilisateur uti = new Utilisateur(1,"mathieu.dadoun@edu.ece.fr", "mdp", "Dadoun", "Mathieu", "Etudiant");
-            //DAOU.create(uti);
-            Utilisateur  utilisateur = DAOU.find(20);
+            Utilisateur  utilisateur = DAOU.find(1);
             utilisateur.printinfos();
+            DAOSalle daos = new DAOSalle(con);
+            Salle salle = daos.find(1);
+            salle.printInfos();
+            if(utilisateur.getDroit().equals("Etudiant")){
+                Etudiant etu = (new DAOEtudiant(con)).find(utilisateur);
+                etu.getGroupe().printInfos();
+            }
             con.close();
         } catch (SQLException ex) {
             ex.printStackTrace();

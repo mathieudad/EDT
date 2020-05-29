@@ -32,5 +32,23 @@ public class Etudiant extends Utilisateur{
         this.numero = numero;
         this.groupe = groupe;
     }
+
+    public Etudiant() {
+        id = -1;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public Groupe getGroupe() {
+        return groupe;
+    }
+
+    public ArrayList<Seance> getSeances() {
+        return seances;
+    }
+    
+    
     
 }

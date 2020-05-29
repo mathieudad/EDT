@@ -19,6 +19,27 @@ public class Groupe {
         this.nom = nom;
         this.promo = promo;
     }
+
+    public Groupe() {
+        id_groupe = -1;
+    }
     
+    public void printInfos(){
+        System.out.println(nom+ " " + promo.getNom());
+    }
+
+    public int getId_groupe() {
+        return id_groupe;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public Promotion getPromo() {
+        return promo;
+    }
+    
+  
     
 }
