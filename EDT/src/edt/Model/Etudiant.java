@@ -5,13 +5,16 @@
  */
 package edt.Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mathi
  */
 public class Etudiant extends Utilisateur{
     private int numero;
-    private int id_groupe;
+    private Groupe groupe;
+    private ArrayList<Seance> seances;
     
     /**
      *
@@ -22,12 +25,12 @@ public class Etudiant extends Utilisateur{
      * @param prenom
      * @param droit
      * @param numero
-     * @param id_gorupe
+     * @param groupe
      */
-    public Etudiant(int id, String email, String passwd, String nom, String prenom, String droit, int numero, int id_gorupe) {
+    public Etudiant(int id, String email, String passwd, String nom, String prenom, String droit, int numero, Groupe groupe) {
         super(id, email, passwd, nom, prenom, droit);
         this.numero = numero;
-        this.id_groupe = id_groupe;
+        this.groupe = groupe;
     }
     
 }

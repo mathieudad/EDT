@@ -12,10 +12,13 @@ package edt.Model;
 public class Groupe {
     private int id_groupe;
     private String nom;
-    private int id_promo;
+    private Promotion promo;
     
-    public Groupe(int id_groupe){
+    public Groupe(int id_groupe, String nom, Promotion promo){
         this.id_groupe = id_groupe;
+        this.nom = nom;
+        this.promo = promo;
     }
+    
     
 }

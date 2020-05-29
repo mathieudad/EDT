@@ -6,6 +6,7 @@
 package edt.Model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,10 +26,12 @@ public class DAOUtilisateur extends DAO<Utilisateur>{
     @Override
     public boolean create(Utilisateur uti) {
         try {
-            String requete = "INSERT INTO `utilisateur` (`Id`, `Email`, `Passwd`, `Nom`, `Prenom`, `Droit`) VALUES (NULL, '"+uti.getEmail()+"', '"+uti.getPasswd()+"', '"+uti.getNom()+"', '"+uti.getPrenom()+"', '"+uti.getDroit()+"')";
-            
-            Statement stmt = con.createStatement();
-            stmt.executeQuery(requete);
+            String requete = "INSERT INTO utilisateur(Id,Email,Passwd,Nom,Prenom,Droit) VALUES (NULL,'" + uti.getEmail() +"','"+uti.getPasswd()+"','"+uti.getNom()+"','"+uti.getPrenom()+"','"+uti.getDroit()+"');";
+            System.out.println(requete);
+            Statement st = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            st.executeUpdate(requete);
+            System.out.println("Requete d'ajout effectuée de " +uti.getNom()+uti.getPrenom());
+            st.close();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,14 +54,17 @@ public class DAOUtilisateur extends DAO<Utilisateur>{
         Utilisateur Utilisateur = new Utilisateur();
        
         ResultSet result = null;
-        String requete = "SELECT * FROM Utilisateur WHERE id=" +id;
-
+        String requete = "SELECT * FROM Utilisateur WHERE Id=" +id+";";
         try {
            Statement stmt = con.createStatement();
            result = stmt.executeQuery(requete);
-           Utilisateur = new Utilisateur(id, result.getString("Email"), result.getString("Passwd"),result.getString("Nom"),result.getString("Prenom"),result.getString("Droit"));
+           result.next();
+           System.out.println(result.getString("Email"));
+           Utilisateur = new Utilisateur(result.getInt("Id"), result.getString("Email"), result.getString("Passwd"),result.getString("Nom"),result.getString("Prenom"),result.getString("Droit"));
+           stmt.close();
         } catch (SQLException e) {
            System.err.println("error pas de user a cet id");
+           e.printStackTrace();
         }
         
         return Utilisateur;

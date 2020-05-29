@@ -30,8 +30,12 @@ public class MainModel {
             
             System.out.println("Connection Established");
             DAOUtilisateur DAOU = new DAOUtilisateur(con);
-            Utilisateur  utilisateur = DAOU.find(1);
+            
+            Utilisateur uti = new Utilisateur(1,"mathieu.dadoun@edu.ece.fr", "mdp", "Dadoun", "Mathieu", "Etudiant");
+            //DAOU.create(uti);
+            Utilisateur  utilisateur = DAOU.find(20);
             utilisateur.printinfos();
+            con.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

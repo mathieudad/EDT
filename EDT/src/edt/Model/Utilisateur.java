@@ -17,6 +17,15 @@ public class Utilisateur {
     protected String prenom;
     protected String droit; 
     
+    /**
+     *
+     * @param id
+     * @param email
+     * @param passwd
+     * @param nom
+     * @param prenom
+     * @param droit
+     */
     public Utilisateur(int id, String email, String passwd, String nom, String prenom, String droit){
         this.id = id;
         this.email = email;
@@ -26,7 +35,9 @@ public class Utilisateur {
         this.droit = droit;
     }
     
-    
+    /**
+     *
+     */
     public Utilisateur(){
         id = -1;
     }
