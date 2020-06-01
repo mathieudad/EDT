@@ -6,10 +6,6 @@
 package edt.Model.DAO;
 
 import edt.Model.Cours;
-import edt.Model.Enseignant;
-import edt.Model.Etudiant;
-import edt.Model.Groupe;
-import edt.Model.Salle;
 import edt.Model.Seance;
 import edt.Model.TypeCours;
 import edt.Model.Utilisateur;
