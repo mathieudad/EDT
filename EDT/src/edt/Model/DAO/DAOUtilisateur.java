@@ -57,6 +57,23 @@ public class DAOUtilisateur extends DAO<Utilisateur>{
         
         return utilisateur;
     }
-
+    
+    public Utilisateur findFromName(String nom, String prenom){
+        Utilisateur utilisateur = new Utilisateur();
+       
+        ResultSet result = null;
+        String requete = "SELECT * FROM Utilisateur WHERE Nom=" +nom+" AND Prenom ="+prenom+";";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           utilisateur = new Utilisateur(result.getInt("Id"), result.getString("Email"), result.getString("Passwd"),result.getString("Nom"),result.getString("Prenom"),result.getString("Droit"));
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas de user a cet id");
+        }
+        
+        return utilisateur;
+    }
        
 }

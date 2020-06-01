@@ -6,7 +6,6 @@
 package edt.Model.DAO;
 
 import edt.Model.Site;
-import edt.Model.TypeCours;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,9 +48,45 @@ public class DAOSite extends DAO<Site>{
            site = new Site(result.getInt("Id"), result.getString("Nom"));
            stmt.close();
         } catch (SQLException e) {
-           System.err.println("error ce cours n'existe pas");
+           System.err.println("error ce site n'existe pas");
         }
         
+        return site;
+    }
+
+    String findString(int id) {
+        String str = null;
+        ResultSet result = null;
+        String requete = "SELECT * FROM Site WHERE Id=" +id+";";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           str = result.getString("Nom");
+          
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas site a cet id");
+           e.printStackTrace();
+        }
+        return str;
+    }
+    
+    public Site findFromNom(String nom){
+        Site site = new Site();
+        ResultSet result = null;
+        String requete = "SELECT * FROM Site WHERE Nom=" +nom+";";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           site = new Site(result.getInt("Id"),result.getString("Nom"));
+          
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas de promo a ce nom");
+           e.printStackTrace();
+        }
         return site;
     }
     

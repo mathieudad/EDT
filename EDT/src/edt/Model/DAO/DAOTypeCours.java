@@ -48,7 +48,7 @@ public class DAOTypeCours extends DAO<TypeCours>{
            typeCours = new TypeCours(result.getInt("Id"), result.getString("Nom"));
            stmt.close();
         } catch (SQLException e) {
-           System.err.println("error ce cours n'existe pas");
+           System.err.println("error ce type de cours n'existe pas");
         }
         return typeCours;
     }

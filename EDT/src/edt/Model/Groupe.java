@@ -5,31 +5,36 @@
  */
 package edt.Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mathi
  */
 public class Groupe {
-    private int id_groupe;
+    private int id;
     private String nom;
     private Promotion promo;
+    private ArrayList<Seance> seances;
     
-    public Groupe(int id_groupe, String nom, Promotion promo){
-        this.id_groupe = id_groupe;
+    
+    public Groupe(int id, String nom, Promotion promo, ArrayList<Seance> seances){
+        this.id = id;
         this.nom = nom;
         this.promo = promo;
+        this.seances = seances;
     }
 
     public Groupe() {
-        id_groupe = -1;
+        id = -1;
     }
     
     public void printInfos(){
         System.out.println(nom+ " " + promo.getNom());
     }
 
-    public int getId_groupe() {
-        return id_groupe;
+    public int getId() {
+        return id;
     }
 
     public String getNom() {
@@ -38,6 +43,10 @@ public class Groupe {
 
     public Promotion getPromo() {
         return promo;
+    }
+
+    public ArrayList<Seance> getSeances() {
+        return seances;
     }
     
   

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Etudiant extends Utilisateur{
     private int numero;
     private Groupe groupe;
-    private ArrayList<Seance> seances;
     
     /**
      *
@@ -45,9 +44,6 @@ public class Etudiant extends Utilisateur{
         return groupe;
     }
 
-    public ArrayList<Seance> getSeances() {
-        return seances;
-    }
     
     
     

@@ -10,10 +10,11 @@ package edt.Model;
  * @author mathi
  */
 public class Promotion {
-    private int id_promo;
+    private int id;
     private String nom;
     
-    public Promotion(int id_promo, String nom){
+    public Promotion(int id, String nom){
+        this.id =id;
         this.nom = nom;
     }
 
@@ -21,8 +22,8 @@ public class Promotion {
        
     }
 
-    public int getId_promo() {
-        return id_promo;
+    public int getId() {
+        return id;
     }
 
     public String getNom() {

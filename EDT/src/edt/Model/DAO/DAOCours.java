@@ -6,7 +6,12 @@
 package edt.Model.DAO;
 
 import edt.Model.Cours;
+import edt.Model.Salle;
+import edt.Model.Site;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -35,7 +40,19 @@ public class DAOCours extends DAO<Cours> {
 
     @Override
     public Cours find(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       Cours cours = new Cours();
+       ResultSet result = null;
+        String requete = "SELECT * FROM Cours WHERE Id=" +id+";";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           cours = new Cours(result.getInt("Id"), result.getString("Nom"));
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error creation du cours");
+        }
+        return cours;
     }
     
 }

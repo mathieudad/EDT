@@ -5,6 +5,7 @@
  */
 package edt.Model;
 
+import edt.Model.DAO.DAOEnseignant;
 import edt.Model.DAO.DAOEtudiant;
 import edt.Model.DAO.DAOSalle;
 import edt.Model.DAO.DAOUtilisateur;
@@ -33,7 +34,7 @@ public class MainModel {
             
             System.out.println("Connection Established");
             DAOUtilisateur DAOU = new DAOUtilisateur(con);
-            Utilisateur  utilisateur = DAOU.find(1);
+            Utilisateur  utilisateur = DAOU.find(4);
             utilisateur.printinfos();
             DAOSalle daos = new DAOSalle(con);
             Salle salle = daos.find(1);
@@ -41,6 +42,23 @@ public class MainModel {
             if(utilisateur.getDroit().equals("Etudiant")){
                 Etudiant etu = (new DAOEtudiant(con)).find(utilisateur);
                 etu.getGroupe().printInfos();
+                for(Seance s : etu.getGroupe().getSeances()){
+                    s.printInfos();
+                }
+                
+            }
+            MyCalendar calendar = new MyCalendar();
+            System.out.println(calendar.quelleDate());
+            System.out.println(calendar.getWeek());
+            calendar.semaineSuivante();
+            System.out.println(calendar.getWeek());
+            System.out.println(calendar.quelleDate());
+            
+            if(utilisateur.getDroit().equals("Enseignant")){
+                Enseignant ens = (new DAOEnseignant(con)).find(utilisateur);
+                for(Seance s : ens.getSeances()){
+                    s.printInfos();
+                }
             }
             con.close();
         } catch (SQLException ex) {

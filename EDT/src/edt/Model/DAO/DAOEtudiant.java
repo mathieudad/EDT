@@ -28,7 +28,7 @@ public class DAOEtudiant extends DAO<Etudiant>{
     @Override
     public boolean create(Etudiant etu) {
          try {
-            String requete = "INSERT INTO Etudiant(Id_utilisateur,Numero,IdGroupe) VALUES (NULL,'" + etu.getNumero() +"','"+etu.getGroupe().getId_groupe()+"');";
+            String requete = "INSERT INTO Etudiant(Id_utilisateur,Numero,IdGroupe) VALUES (NULL,'" + etu.getNumero() +"','"+etu.getGroupe().getId()+"');";
             System.out.println(requete);
             Statement st = con.createStatement();
             st.executeUpdate(requete);
@@ -69,14 +69,11 @@ public class DAOEtudiant extends DAO<Etudiant>{
            etudiant = new Etudiant(uti.getId(),uti.getEmail(), uti.getPasswd(), uti.getNom() , uti.getPrenom(),uti.getDroit(),result.getInt("Numero"), gr);
            stmt.close();
         } catch (SQLException e) {
-           System.err.println("error pas de user a cet id");
+           System.err.println("error pas d'etudiant a cet id");
            e.printStackTrace();
         }
         
         return etudiant;
     }
-
-    private Object DAOGroupe() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
+
