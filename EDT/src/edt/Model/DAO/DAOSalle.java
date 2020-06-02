@@ -104,7 +104,7 @@ public class DAOSalle extends DAO<Salle>{
         try {
            Statement stmt = con.createStatement();
            Site site = new DAOSite(con).findFromNom(nomSite);
-           String requete = "SELECT * FROM Salle WHERE Nom=" +nomSalle+" AND Id_site="+site.getId()+";";
+           String requete = "SELECT * FROM Salle WHERE Nom='" +nomSalle+"' AND Id_site="+site.getId()+";";
            result = stmt.executeQuery(requete);
            result.next();
            ArrayList<Seance> seances = findSeances(result.getInt("Id")); 

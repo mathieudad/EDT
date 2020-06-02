@@ -120,7 +120,7 @@ public class DAOGroupe extends DAO<Groupe>{
         try {
            Statement stmt = con.createStatement();
            Promotion promo = new DAOPromotion(con).findFromNom(nomProm);
-           String requete = "SELECT * FROM Groupe WHERE Nom=" +nomGr+" AND Id_Promo="+promo.getId()+";";
+           String requete = "SELECT * FROM Groupe WHERE Nom='"+nomGr+"' AND Id_Promo="+promo.getId()+";";
            result = stmt.executeQuery(requete);
            result.next();
            ArrayList<Seance> seances = findSeances(result.getInt("Id")); 

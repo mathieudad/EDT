@@ -5,14 +5,15 @@
  */
 package edt.Model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author mathi
  */
-public class Admin {
-    ArrayList<Enseignant> Esneignant;
-    ArrayList<Salle> Salle;
-    ArrayList<Groupe> Groupes;
+public class MauvaisEmailOuMdp extends Exception{
+
+    public MauvaisEmailOuMdp(String string) {
+        super(string);
+    }
+    
+    
 }

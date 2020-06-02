@@ -50,7 +50,23 @@ public class DAOCours extends DAO<Cours> {
            cours = new Cours(result.getInt("Id"), result.getString("Nom"));
            stmt.close();
         } catch (SQLException e) {
-           System.err.println("error creation du cours");
+           System.err.println("error pas de cours a cet Id");
+        }
+        return cours;
+    }
+    
+    public Cours findFromName(String nom){
+        Cours cours = new Cours();
+       ResultSet result = null;
+        String requete = "SELECT * FROM Cours WHERE Nom='" +nom+"';";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           cours = new Cours(result.getInt("Id"), result.getString("Nom"));
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas de cours a ce nom");
         }
         return cours;
     }

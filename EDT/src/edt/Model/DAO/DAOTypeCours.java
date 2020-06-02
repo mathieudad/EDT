@@ -52,5 +52,21 @@ public class DAOTypeCours extends DAO<TypeCours>{
         }
         return typeCours;
     }
+
+    public TypeCours findFromName(String nom) {
+       TypeCours typeCours = new TypeCours();
+        ResultSet result = null;
+        String requete = "SELECT * FROM TypeCours WHERE Nom='" +nom+"';";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requete);
+           result.next();
+           typeCours = new TypeCours(result.getInt("Id"), result.getString("Nom"));
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas de type de cours a ce nom");
+        }
+        return typeCours;
+    }
     
 }

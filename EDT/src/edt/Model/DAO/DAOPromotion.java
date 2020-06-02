@@ -77,7 +77,7 @@ public class DAOPromotion extends DAO<Promotion> {
     public Promotion findFromNom(String nom){
         Promotion promo = new Promotion();    
         ResultSet result = null;
-        String requete = "SELECT * FROM Promotion WHERE Nom=" +nom+";";
+        String requete = "SELECT * FROM Promotion WHERE Nom='" +nom+"';";
         try {
            Statement stmt = con.createStatement();
            result = stmt.executeQuery(requete);

@@ -75,7 +75,7 @@ public class DAOSite extends DAO<Site>{
     public Site findFromNom(String nom){
         Site site = new Site();
         ResultSet result = null;
-        String requete = "SELECT * FROM Site WHERE Nom=" +nom+";";
+        String requete = "SELECT * FROM Site WHERE Nom='" +nom+"';";
         try {
            Statement stmt = con.createStatement();
            result = stmt.executeQuery(requete);

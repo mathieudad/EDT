@@ -31,16 +31,18 @@ public class DAOSeance extends DAO<Seance>{
     public boolean create(Seance obj) {
         ResultSet result = null;
         try {
-            String requete = "INSERT INTO `seance` (`Id`, `Semaine`, `Date`, `Heure_debut`, `Heure_fin`, `Etat`, `Id_cours`, `Id_type`) VALUES (NULL, '"+obj.getSemaine()+"', '"+obj.getDate()+"', '"+obj.getHeure_debut()+"', '"+obj.getHeure_fin()+"', '"+obj.getEtat()+"', '"+obj.getCours().getId()+"', '"+obj.getTypeCours().getId()+"'));";
-            System.out.println(requete);
+            String requete = "INSERT INTO `seance` (`Id`, `Semaine`, `Date`, `Heure_debut`, `Heure_fin`, `Etat`, `Id_cours`, `Id_type`) VALUES (NULL, '"+obj.getSemaine()+"', '"+obj.getDate()+"', '"+obj.getHeure_debut()+"', '"+obj.getHeure_fin()+"', '"+obj.getEtat()+"', '"+obj.getCours().getId()+"', '"+obj.getTypeCours().getId()+"');";
             Statement st = con.createStatement();
             st.executeUpdate(requete);
             System.out.println("Requete d'ajout effectuée ");
-            String requeteid = "SELECT id FROM seance WHERE Id = MAX(Id)";   
-            result = st.executeQuery(requete);
+            String requeteid = "SELECT MAX(Id) FROM Seance;";   
+            result = st.executeQuery(requeteid);
             result.next();
-            int id_seance = result.getInt("Id");
+            int id_seance = result.getInt("MAX(Id)");
+            System.out.println(id_seance);
             createSeanceEnseignant(id_seance,obj,st);
+            createSeanceSalle(id_seance,obj,st);
+            createSeanceGroupe(id_seance,obj,st);
             st.close();
             return true;
         } catch (SQLException ex) {
@@ -54,7 +56,7 @@ public class DAOSeance extends DAO<Seance>{
             try {
                 String[] s = str.split(",");
                 int id = new DAOUtilisateur(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_enseignants(Id_seance, Id_enseignant) VALUES('"+id_seance+"','"+id+"';";
+                String result = "INSERT INTO seance_enseignants(Id_seance, Id_enseignant) VALUES('"+id_seance+"','"+id+"');";
                 st.executeUpdate(result);
                 return true;
             } catch (SQLException ex) {
@@ -69,7 +71,7 @@ public class DAOSeance extends DAO<Seance>{
             try {
                 String[] s = str.split(",");
                 int id = new DAOGroupe(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_groupe(Id_seance, Id_groupe) VALUES('"+id_seance+"','"+id+"';";
+                String result = "INSERT INTO seance_groupe(Id_seance, Id_groupe) VALUES('"+id_seance+"','"+id+"');";
                 st.executeUpdate(result);
                 return true;
             } catch (SQLException ex) {
@@ -84,7 +86,7 @@ public class DAOSeance extends DAO<Seance>{
             try {
                 String[] s = str.split(",");
                 int id = new DAOSalle(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_salle(Id_seance, Id_salle) VALUES('"+id_seance+"','"+id+"';";
+                String result = "INSERT INTO seance_salles(Id_seance, Id_salle) VALUES('"+id_seance+"','"+id+"');";
                 st.executeUpdate(result);
                 return true;
             } catch (SQLException ex) {

@@ -19,6 +19,10 @@ public class MyCalendar {
        calendar = Calendar.getInstance();
     }
     
+    public void changeDate(Date date){
+        calendar.setTime(date);
+    }
+    
     public int getWeek(){
         return calendar.get(Calendar.WEEK_OF_YEAR);
     } 
