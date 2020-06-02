@@ -36,7 +36,7 @@ public class Etudiant extends Utilisateur{
         id = -1;
     }
 
-    public int getNumero() {
+    public int getNumero(){
         return numero;
     }
 
