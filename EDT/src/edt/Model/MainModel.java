@@ -27,7 +27,8 @@ public class MainModel {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-        
+        MyCalendar calendar = new MyCalendar();
+            calendar.semaineSuivante();
         try {
             try { 
                 Class.forName("com.mysql.jdbc.Driver");
@@ -37,10 +38,11 @@ public class MainModel {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/edt" ,"root",""); //edt est le nom de BD
             
             System.out.println("Connection Established");
-        /*
+     
             DAOUtilisateur DAOU = new DAOUtilisateur(con);
-            Utilisateur  utilisateur = DAOU.find(4);
-            utilisateur.printinfos();
+            Utilisateur  utilisateur = DAOU.find(8);
+            System.out.println("Je suis");
+            utilisateur.printInfos();
             DAOSalle daos = new DAOSalle(con);
             Salle salle = daos.find(1);
             salle.printInfos();
@@ -52,21 +54,20 @@ public class MainModel {
                 }
                 
             }
-            MyCalendar calendar = new MyCalendar();
-            System.out.println(calendar.quelleDate());
-            System.out.println(calendar.getWeek());
-            calendar.semaineSuivante();
-            System.out.println(calendar.getWeek());
-            System.out.println(calendar.quelleDate());
-            
             if(utilisateur.getDroit().equals("Enseignant")){
                 Enseignant ens = (new DAOEnseignant(con)).find(utilisateur);
                 for(Seance s : ens.getSeances()){
                     s.printInfos();
                 }
             }
-            */
+            if(utilisateur.getDroit().equals("Referant")){
+                Referant referant = new Referant(utilisateur, con);
+                referant.printInfos();
+            }
+        
+            /*
             MyCalendar myCalendar = new MyCalendar();
+            
             ArrayList<String> enseignants = new ArrayList();
             ArrayList<String> groupes = new ArrayList();
             ArrayList<String> salles = new ArrayList();
@@ -89,7 +90,7 @@ public class MainModel {
             Seance create = new Seance(1,semaine,date,heureDebut,heureFin,etat,cours,typeCours,groupes,enseignants,salles);
             create.printInfos();
             new DAOSeance(con).create(create);
-            
+            */
         
             con.close();
             } catch (SQLException ex) {

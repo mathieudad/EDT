@@ -89,5 +89,24 @@ public class DAOEnseignant extends DAO<Enseignant>{
         
     }
     
+    public ArrayList<Enseignant> findAll(){
+        ArrayList<Enseignant> enseignants = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM Utilisateur WHERE Droit ='Enseignant';";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               Utilisateur utilisateur = new Utilisateur(result.getInt("Id"), result.getString("Email"), result.getString("Passwd"),result.getString("Nom"),result.getString("Prenom"),result.getString("Droit"));
+               Enseignant ens = find(utilisateur);
+               enseignants.add(ens);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error creation array list seance dans enseignant");
+           e.printStackTrace();
+        }
+        return enseignants;
+    }
     
 }

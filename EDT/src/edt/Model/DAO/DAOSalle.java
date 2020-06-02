@@ -117,4 +117,25 @@ public class DAOSalle extends DAO<Salle>{
         return salle;
     }
     
+    public ArrayList<Salle> findAll(){
+        ArrayList<Salle> salles = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM Salle";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               Site site = (new DAOSite(con)).find(result.getInt("Id_site"));
+               ArrayList<Seance> seances = findSeances(result.getInt("Id"));
+               Salle salle = new Salle(result.getInt("Id"), result.getString("Nom"), result.getInt("Capacite"), site, seances);
+               salles.add(salle);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas du tout de salles");
+           e.printStackTrace();
+        }
+        return salles;
+    }
+    
 }

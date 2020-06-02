@@ -42,7 +42,7 @@ public class Utilisateur {
         id = -1;
     }
     
-    public void printinfos(){
+    public void printInfos(){
         System.out.println("bonjour "+ nom +" " + prenom);
         System.out.println("infos perso :" + email + " " + passwd);
         System.out.println(" vous etes un :" + droit + " #id " + id);

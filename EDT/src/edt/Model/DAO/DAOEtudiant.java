@@ -5,6 +5,7 @@
  */
 package edt.Model.DAO;
 
+import edt.Model.Enseignant;
 import edt.Model.Etudiant;
 import edt.Model.Groupe;
 import edt.Model.Utilisateur;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -75,5 +77,26 @@ public class DAOEtudiant extends DAO<Etudiant>{
         
         return etudiant;
     }
+    
+    public ArrayList<Etudiant> findAll(){
+          ArrayList<Etudiant> etudiants = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM Utilisateur WHERE Droit ='Etudiant';";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               Utilisateur utilisateur = new Utilisateur(result.getInt("Id"), result.getString("Email"), result.getString("Passwd"),result.getString("Nom"),result.getString("Prenom"),result.getString("Droit"));
+               Etudiant etu = find(utilisateur);
+               etudiants.add(etu);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas du tout d'etudiants");
+           e.printStackTrace();
+        }
+        return etudiants;
+    }
+    
 }
 
