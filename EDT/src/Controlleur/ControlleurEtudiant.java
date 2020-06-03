@@ -5,13 +5,16 @@
  */
 package Controlleur;
 
-import Vue.JFrameEtudiant;
+import Vue.JFrameEDT;
 import edt.Model.Etudiant;
 import edt.Model.MyCalendar;
 import edt.Model.Seance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -21,41 +24,32 @@ import javax.swing.JTextArea;
 public class ControlleurEtudiant implements ActionListener{
     MyCalendar myCalendar;
     Etudiant etudiant;
-    JFrameEtudiant jFrameEtudiant;
+    JFrameEDT jFrameEtudiant;
     
-    public ControlleurEtudiant(Etudiant etudiant){
+    public ControlleurEtudiant(Etudiant etudiant) throws InterruptedException{
         this.etudiant = etudiant;
         myCalendar = new MyCalendar();
-        jFrameEtudiant = new JFrameEtudiant();
+        jFrameEtudiant = new JFrameEDT(myCalendar,etudiant.getGroupe().getSeances(myCalendar.getWeek()));
         jFrameEtudiant.getSemainePrecedante().addActionListener(this);
         jFrameEtudiant.getSemaineSuivante().addActionListener(this);
-        afficherEDT();
     }
     
-    
-    public ArrayList<Seance> recupererSeances(){
-        int week = myCalendar.getWeek();
-        ArrayList<Seance> seancesUtiles = etudiant.getGroupe().seancesFromWeek(week);
-        return seancesUtiles;
-    }
     
     public void afficherEDT(){
-        jFrameEtudiant.getNumeroWeek().setText("Semaine :" + Integer.toString(myCalendar.getWeek()));
-        jFrameEtudiant.getPanel().removeAll();
-        ArrayList<Seance> seances = recupererSeances();
-        for(int i= 0; i< 48; i++)
-            //for(int j= 0; j<8;j++)
-            jFrameEtudiant.getPanel().add(new JTextArea("ok")); 
+        jFrameEtudiant.afficheEDT(myCalendar,etudiant.getGroupe().getSeances(myCalendar.getWeek()));
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
          if(actionEvent.getSource() == jFrameEtudiant.getSemaineSuivante()) {
             myCalendar.semaineSuivante();
+            jFrameEtudiant.getPanel().removeAll();
             afficherEDT();
+                
         }
         if(actionEvent.getSource() == jFrameEtudiant.getSemainePrecedante()) {
             myCalendar.semainePrecedente();
+            jFrameEtudiant.getPanel().removeAll();
             afficherEDT();
         } 
      }

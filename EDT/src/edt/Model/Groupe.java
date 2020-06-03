@@ -24,16 +24,6 @@ public class Groupe {
         this.promo = promo;
         this.seances = seances;
     }
-    
-    public ArrayList<Seance> seancesFromWeek(int week){
-        ArrayList<Seance> seancesWeek = new ArrayList();
-        for(Seance s : seances){
-            if(s.getSemaine() == week){
-                seancesWeek.add(s);
-            }
-        }
-        return seancesWeek;
-    }
 
     public Groupe() {
         id = -1;
@@ -59,8 +49,19 @@ public class Groupe {
         return seances;
     }
 
+    /**
+     *
+     * @param week
+     * @return le nombre de seances pour un week donné
+     */
     public ArrayList<Seance> getSeances(int week) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Seance> seancesWeek = new ArrayList();
+        for(Seance s : seances){
+            if(s.getSemaine() == week){
+                seancesWeek.add(s);
+            }
+        }
+        return seancesWeek;
     }
     
   

@@ -33,6 +33,15 @@ public class Enseignant extends Utilisateur{
     public ArrayList<Seance> getSeances() {
         return seances;
     }
- 
+    
+    public ArrayList<Seance> getSeances(int week) {
+        ArrayList<Seance> seancesWeek = new ArrayList();
+        for(Seance s : seances){
+            if(s.getSemaine() == week){
+                seancesWeek.add(s);
+            }
+        }
+        return seancesWeek;
+    }
     
 }

@@ -45,18 +45,19 @@ public class Seance {
         
     }
     
-    public void printInfos(){
-        System.out.println("cours :" + cours.getNom()+" type "+ typeCours.getNom());
-        System.out.println("de "+heure_debut+" a "+heure_fin+" le "+ date);
+    public String printInfos(){
+        String str = "cours :" + cours.getNom()+" type "+ typeCours.getNom()+"\n";
+        str += "de "+heure_debut+" a "+heure_fin+" le "+ date+"\n";
         for(String e : enseignants){
-            System.out.println(e);
+            str += e +"\n";
         }
         for(String e : salles){
-            System.out.println(e);
+            str += e +"\n";
         }
         for(String e : groupes){
-            System.out.println(e);
+            str += e+"\n";
         }
+        return str;
     }
 
     public void addEnseignant(String nom, String prenom){

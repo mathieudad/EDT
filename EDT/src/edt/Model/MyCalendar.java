@@ -17,6 +17,8 @@ public class MyCalendar {
     
     public MyCalendar(){
        calendar = Calendar.getInstance();
+       revenirAuLundi();
+       
     }
     
     public void changeDate(Date date){
@@ -38,4 +40,14 @@ public class MyCalendar {
     public Date quelleDate(){
         return calendar.getTime();
     }
+    
+    public void revenirAuLundi(){
+        calendar.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+    }
+    
+    public void jourSuivant(){
+        calendar.add(Calendar.DAY_OF_WEEK, 1);
+    }
+    
+    
 }
