@@ -7,6 +7,7 @@ package Vue;
 
 import edt.Model.MyCalendar;
 import edt.Model.Seance;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -73,7 +74,10 @@ public class JFrameEDT extends JFrame{
     public void afficheHoraires(Calendar heure_debut, Calendar heure_fin){
         
         String time = heure_debut.get(Calendar.HOUR_OF_DAY)+":" + heure_debut.get(Calendar.MINUTE)+ " - " + heure_fin.get(Calendar.HOUR_OF_DAY) +" : " + heure_fin.get(Calendar.MINUTE);
-        panel.add(new JTextArea(time));
+        JTextArea heure = new JTextArea(time);
+        Color gris = new Color(241, 241, 241);
+        heure.setBackground(gris);
+        panel.add(heure);
         heure_debut.add(Calendar.HOUR_OF_DAY,1);
         heure_debut.add(Calendar.MINUTE, 30);           
         heure_fin.add(Calendar.HOUR_OF_DAY,1);
@@ -91,7 +95,10 @@ public class JFrameEDT extends JFrame{
         for(int i=0;i<5;i++){
             java.sql.Date sqlDate = new java.sql.Date(myCalendar.quelleDate().getTime());
             String str = sqlDate.toString(); 
-            panel.add(new JTextArea(str)); 
+            JTextArea jour = new JTextArea(str);
+            Color gris = new Color(241, 241, 241);
+            jour.setBackground(gris);
+            panel.add(jour); 
             myCalendar.jourSuivant();
             column++;
         }
@@ -112,7 +119,10 @@ public class JFrameEDT extends JFrame{
         for(Seance s : seances){    
             String date2 = s.getDate().toString();
             if(date2.equals(date1)&& s.getHeure_debut().equals(time)){
-                panel.add(new JTextArea(s.printInfos()));
+                JTextArea texte = new JTextArea(s.printInfos());
+                Color vert = new Color(196,254,145);
+                texte.setBackground(vert);
+                panel.add(texte);
                 column++;
                 
                 return;
