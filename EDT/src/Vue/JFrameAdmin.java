@@ -125,7 +125,11 @@ public class JFrameAdmin extends JFrame{
        return strings;
     }
     
-    
+    /**
+     * renvoi au format pour afficher les types de cours
+     * @param typeCours
+     * @return
+     */
     public Vector<String> affichageBoxTypeCours(ArrayList<TypeCours> typeCours){
         Vector<String> strings = new Vector();
         int i =0;
@@ -259,6 +263,10 @@ public class JFrameAdmin extends JFrame{
         this.setVisible(true);
         
     }
+
+    /**
+     * Si la date est mauvaise cette fonction est appelée 
+     */
     public void etape4AjoutMauvaiseDate(){
         panel.removeAll();
         repaint();
@@ -281,6 +289,10 @@ public class JFrameAdmin extends JFrame{
         
     }
     
+    /**
+     * affichage des creneaux disponibles pour la seance a la date d
+     * @param times
+     */
     public void etape5Ajout(ArrayList<String> times) {
         Vector<String> str = affichageBoxTime(times);
         panel.removeAll();
@@ -293,7 +305,12 @@ public class JFrameAdmin extends JFrame{
         this.setVisible(true);
     }
     
-     public Vector<String> affichageBoxTime(ArrayList<String> times){
+    /**
+     * renvoi au format pour afficher les creneaux horaires
+     * @param times
+     * @return
+     */
+    public Vector<String> affichageBoxTime(ArrayList<String> times){
         Vector<String> strings = new Vector();
         int i =0;
         for(String g : times){
@@ -302,7 +319,11 @@ public class JFrameAdmin extends JFrame{
        return strings;
     }
    
-     public void etape6Ajout(ArrayList<Salle> salles){
+    /**
+     * affichage des salles pour les ajouter a la seance
+     * @param salles
+     */
+    public void etape6Ajout(ArrayList<Salle> salles){
          Vector<String> str = affichageBoxSalle(salles);
         panel.removeAll();
         repaint();
@@ -313,7 +334,11 @@ public class JFrameAdmin extends JFrame{
         this.setVisible(true);
      }
      
-     public void etape6BisAjout(ArrayList<Salle> salles){
+    /**
+     * Ajout d'une deuxieme salle si une seule suffit pas
+     * @param salles
+     */
+    public void etape6BisAjout(ArrayList<Salle> salles){
         Vector<String> str = affichageBoxSalle(salles);
         panel.removeAll();
         repaint();
@@ -324,7 +349,12 @@ public class JFrameAdmin extends JFrame{
         this.setVisible(true);
      }
      
-     public Vector<String> affichageBoxSalle(ArrayList<Salle> salles){
+    /**
+     * renvoie au format pour afficher les salles
+     * @param salles
+     * @return
+     */
+    public Vector<String> affichageBoxSalle(ArrayList<Salle> salles){
         Vector<String> strings = new Vector();
         int i =0;
         for(Salle g : salles){
@@ -333,7 +363,9 @@ public class JFrameAdmin extends JFrame{
        return strings;
      }
      
-     
+    /**
+     * est appelé quand la seance a ete ajoutée
+     */
     public void affichageOK() {
        panel.removeAll();
        repaint();
@@ -342,6 +374,9 @@ public class JFrameAdmin extends JFrame{
        this.setVisible(true);
     }
     
+    /**
+     * Affiche lorsque la capacité est inferieurs aux peronnes pour le gr choisi
+     */
     public void problemeCapacite(){
        panel.removeAll();
        repaint();

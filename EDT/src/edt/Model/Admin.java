@@ -177,43 +177,14 @@ public class Admin extends Referant{
     }
     return sallesDispo;
    }
-    
-    
-    
-    public boolean checkTimeGroupe(ArrayList<Groupe> grs, Time heure_debut, Time heure_fin, Date date){
-        for(Groupe g : grs){
-            for(Seance s : g.getSeances()){
-                if(s.getDate() == date && s.getHeure_debut() == heure_debut && s.getHeure_fin() == heure_fin){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    
-    public boolean checkTimeEnseignant(ArrayList<Enseignant> ens, Time heure_debut, Time heure_fin, Date date){
-        for(Enseignant e : ens){
-            for(Seance s : e.getSeances()){
-                if(s.getDate() == date && s.getHeure_debut() == heure_debut && s.getHeure_fin() == heure_fin){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    
-    public boolean checkTimeSalle(ArrayList<Salle> sls, Time heure_debut, Time heure_fin, Date date){
-        for(Salle e : sls){
-            for(Seance s : e.getSeances()){
-                if(s.getDate() == date && s.getHeure_debut() == heure_debut && s.getHeure_fin() == heure_fin){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-    
-    //verifie que pour les groupe et les salles données la capacité d'accueil soit suffisante
+ 
+
+    /**
+     * verifie que pour les groupe et les salles données la capacité d'accueil soit suffisante
+     * @param sa
+     * @param gr
+     * @return
+     */
     public boolean checkSalleCapacite(ArrayList<Salle> sa, ArrayList<Groupe> gr){
         int nombreTotalEtu=0;
         for(Groupe g :gr){
@@ -222,15 +193,18 @@ public class Admin extends Referant{
         int capaTotaleSalle =0;
         for (Salle s : sa)
             capaTotaleSalle += s.getCapacite();
-        System.out.println(capaTotaleSalle +" ");
-        System.out.println(nombreTotalEtu +" ");
         if(capaTotaleSalle>= nombreTotalEtu)
             return true;
         return false;
             
     }
     
-    //renvoie le nombre d'etudiant pour un groupe donné
+
+    /**
+     * renvoie le nombre d'etudiant pour un groupe donné
+     * @param groupe
+     * @return
+     */
     public int nombreEtudiantParGroupe(Groupe groupe){
         int nombreEtu=0;
         for(Etudiant etu : etudiants){
@@ -247,35 +221,4 @@ public class Admin extends Referant{
     public ArrayList<TypeCours> getTypesCours() {
         return typesCours;
     }
-
-    
-  /*
-    ArrayList<Salle> sallesDispo = new ArrayList();
-        ArrayList<Salle> mauvaisesSalles = new ArrayList();
-        for(Salle s : salles){
-            sallesDispo.add(s);
-        }
-        
-        for(Salle s : salles){
-            for(Seance se : s.getSeances(date)){
-                    if(se.getHeure_debut().equals(heureDebut))
-                        mauvaisesSalles.add(s);
-            }
-       }
-        
-    Iterator<Salle> salleI = sallesDispo.iterator();
-    for(Salle s : mauvaisesSalles){
-         while(salleI.hasNext()){
-                Salle t = salleI.next();
-                if(t.equals(s))
-                    salleI.remove();
-                }
-    }
-    return sallesDispo;
-    }
-    */
-
-    
-    
- 
 }

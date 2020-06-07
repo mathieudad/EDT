@@ -75,6 +75,10 @@ public class DAOTypeCours extends DAO<TypeCours>{
         return typeCours;
     }
 
+    /**
+     * Trouve et renvoie tous les types de cours
+     * @return
+     */
     public ArrayList<TypeCours> findAll() {
         ArrayList<TypeCours> typesCours = new ArrayList();
         ResultSet result = null;

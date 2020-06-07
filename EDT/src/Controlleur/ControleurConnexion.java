@@ -50,7 +50,7 @@ public class ControleurConnexion implements ActionListener{
                 Utilisateur utilisateur = new DAOUtilisateur(con).findFromConnexion(email, passWd);
                 lancementBonControleur(utilisateur);
             } catch (MauvaisEmailOuMdp ex) {
-                jFrameConnexion.essayerEncore();
+                jFrameConnexion.essayezEncore();
             }
             try {
                 con.close();

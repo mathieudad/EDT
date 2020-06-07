@@ -45,7 +45,10 @@ public class JFrameConnexion extends JFrame {
         this.setVisible(true);
     }
     
-    public void essayerEncore(){
+    /**
+     * est lancé quand de mot de passe est mauvais
+     */
+    public void essayezEncore(){
         panel.removeAll();
         repaint();
         panel.add(new JLabel("Mauvais email ou mdp"));

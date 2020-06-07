@@ -33,6 +33,11 @@ public class Enseignant extends Utilisateur{
         return nom +" "+ prenom;
     }
     
+    /**
+     * test si cet enseignant enseigne pour le cours donnée 
+     * @param cour
+     * @return
+     */
     public boolean estEnseignant(Cours cour){
         for(Cours c : cours)
             if(c.getId() == cour.getId())

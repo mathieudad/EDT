@@ -23,12 +23,10 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -163,8 +161,6 @@ public class ControlleurAdmin implements ActionListener{
         if(actionEvent.getSource() == jFrameAdmin.getCoursButton()) {
            cours = admin.findCoursFromName((String) jFrameAdmin.getBoxCours().getSelectedItem());
            typeCours = admin.findTypeCoursFromName((String) jFrameAdmin.getBoxTypeCours().getSelectedItem());
-           System.out.println(cours.getNom());
-           System.out.println(typeCours.getNom());
            ArrayList<Enseignant> ens = new ArrayList();
            //on cherche les enseignants du cours selectionné
            for(Enseignant e : admin.getEnseignants())
@@ -175,13 +171,11 @@ public class ControlleurAdmin implements ActionListener{
         //on afiche les autres enseignants dispo pour ce cours
         if(actionEvent.getSource() == jFrameAdmin.getEnseignantButton()) {
             enseignants.add(admin.findEnseignantFromName((String) jFrameAdmin.getBoxEnseignant1().getSelectedItem()));
-            System.out.println(enseignants.get(0).getNom());
             ArrayList<Enseignant> ensbis = new ArrayList();
             //on cherche les autres enseignants du cours selectionné
             for(Enseignant e : admin.getEnseignants()){
                 if(e.getId() != enseignants.get(0).getId() && e.estEnseignant(cours)){
                     ensbis.add(e);
-                    System.out.println("ok");
                 }
             }
             if(ensbis.isEmpty())
@@ -191,7 +185,6 @@ public class ControlleurAdmin implements ActionListener{
         // on lance les groupes 
         if(actionEvent.getSource() == jFrameAdmin.getEnseignantButton2()) {
             enseignants.add(admin.findEnseignantFromName((String) jFrameAdmin.getBoxEnseignant2().getSelectedItem()));
-            System.out.println(enseignants.get(1).getNom());
             jFrameAdmin.etape3Ajout(admin.getGroupes());
         }
         //on skip pour lancer les groupes
@@ -261,8 +254,6 @@ public class ControlleurAdmin implements ActionListener{
             String heureFin = trouverHeureFin(heureDebut);
             heure_debut = Time.valueOf(heureDebut);
             heure_fin = Time.valueOf(heureFin);
-            System.out.println(heureDebut);
-            System.out.println(heureFin);
             ArrayList<Salle> dispo = admin.salleDispo(dateString,heure_debut);
             jFrameAdmin.etape6Ajout(dispo);
         }
@@ -297,6 +288,9 @@ public class ControlleurAdmin implements ActionListener{
         }
     }
     
+    /**
+     * Ajout de la seance dans la base de donnée
+     */
     public void ajoutDansBDD(){
         Date date = Date.valueOf(dateString);
         MyCalendar mc = new MyCalendar();
@@ -369,6 +363,10 @@ public class ControlleurAdmin implements ActionListener{
        return null;
     }
       
+    /**
+     * Lance une une connexion a la base de donée
+     * @return
+     */
     public Connection connecterPourAjouter(){
         Connection con=null;
         try { 
@@ -384,8 +382,6 @@ public class ControlleurAdmin implements ActionListener{
             }
          return con;
     }
-    
-    
 }
 
     
