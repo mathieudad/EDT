@@ -114,10 +114,11 @@ public class JFrameEDT extends JFrame{
             if(date2.equals(date1)&& s.getHeure_debut().equals(time)){
                 panel.add(new JTextArea(s.printInfos()));
                 column++;
+                
                 return;
             }
         }
-        panel.add(new JTextArea("-------"));    
+        panel.add(new JTextArea("--------"));    
         column++;
     }
     
