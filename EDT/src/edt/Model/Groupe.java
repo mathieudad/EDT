@@ -17,7 +17,13 @@ public class Groupe {
     private Promotion promo;
     private ArrayList<Seance> seances;
     
-    
+    /**
+     * Constructeur de groupe
+     * @param id
+     * @param nom
+     * @param promo
+     * @param seances
+     */
     public Groupe(int id, String nom, Promotion promo, ArrayList<Seance> seances){
         this.id = id;
         this.nom = nom;
@@ -29,8 +35,12 @@ public class Groupe {
         id = -1;
     }
     
-    public void printInfos(){
-        System.out.println(nom+ " " + promo.getNom());
+    /**
+     * retourne les infos a afficher dans la JList
+     * @return
+     */
+    public String infosPourList(){
+        return nom+ " , " +promo.getNom();
     }
 
     public int getId() {
@@ -48,7 +58,7 @@ public class Groupe {
     public ArrayList<Seance> getSeances() {
         return seances;
     }
-
+    
     /**
      *
      * @param week
@@ -62,6 +72,21 @@ public class Groupe {
             }
         }
         return seancesWeek;
+    }
+    
+    /**
+     * retourne les seances a une date precise
+     * @param date
+     * @return
+     */
+    public ArrayList<Seance> getSeances(String date){
+         ArrayList<Seance> seancesDate = new ArrayList();
+        for(Seance s : seances){
+            if(s.getDate().toString().equals(date)){
+                seancesDate.add(s);
+            }
+        }
+        return seancesDate;
     }
     
   

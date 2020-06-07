@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -53,6 +54,11 @@ public class DAOTypeCours extends DAO<TypeCours>{
         return typeCours;
     }
 
+    /**
+     * renvoie le type de cours en fonction du nom
+     * @param nom
+     * @return
+     */
     public TypeCours findFromName(String nom) {
        TypeCours typeCours = new TypeCours();
         ResultSet result = null;
@@ -67,6 +73,25 @@ public class DAOTypeCours extends DAO<TypeCours>{
            System.err.println("error pas de type de cours a ce nom");
         }
         return typeCours;
+    }
+
+    public ArrayList<TypeCours> findAll() {
+        ArrayList<TypeCours> typesCours = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM typecours";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               TypeCours cours = new TypeCours(result.getInt("Id"), result.getString("Nom"));
+               typesCours.add(cours);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas du tout de salles");
+           e.printStackTrace();
+        }
+        return typesCours;
     }
     
 }

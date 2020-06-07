@@ -18,6 +18,14 @@ public class Salle {
     private Site site;
     private ArrayList<Seance> seances;
     
+    /**
+     * Constructeur de la salle
+     * @param id
+     * @param nom
+     * @param capacite
+     * @param site
+     * @param seances
+     */
     public Salle(int id, String nom, int capacite, Site site, ArrayList<Seance> seances){
         this.id = id;
         this.nom = nom;
@@ -29,7 +37,14 @@ public class Salle {
     public Salle() {
         id = -1;
     }
-
+    
+    /**
+     *retourne une string avec la salle et le site pour la liste
+     * @return
+     */
+    public String infosPourList(){
+        return nom +" , "+site.getNom();
+    }
     public int getId() {
         return id;
     }
@@ -50,11 +65,37 @@ public class Salle {
         return seances;
     }
     
-    
-    
-    public void printInfos(){
-        System.out.println(nom +" "+ site.getNom());
+    /**
+     * retourne les seances pour un week donné
+     * @param week
+     * @return
+     */
+    public ArrayList<Seance> getSeances(int week) {
+        ArrayList<Seance> seancesWeek = new ArrayList();
+        for(Seance s : seances){
+            if(s.getSemaine() == week){
+                seancesWeek.add(s);
+            }
+        }
+        return seancesWeek;
     }
+    
+    /**
+     * retourne les seances a cette date
+     * @param date
+     * @return
+     */
+    public ArrayList<Seance> getSeances(String date){
+         ArrayList<Seance> seancesDate = new ArrayList();
+        for(Seance s : seances){
+            if(s.getDate().toString().equals(date)){
+                seancesDate.add(s);
+            }
+        }
+        return seancesDate;
+    }
+    
+    
     
     
 }

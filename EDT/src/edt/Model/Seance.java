@@ -26,6 +26,20 @@ public class Seance {
     private ArrayList<String> enseignants;
     private ArrayList<String> salles;
 
+    /**
+     * Constructeur de Seance
+     * @param id
+     * @param semaine
+     * @param date
+     * @param heure_debut
+     * @param heure_fin
+     * @param Etat
+     * @param cours
+     * @param typeCours
+     * @param groupes
+     * @param enseignants
+     * @param salles
+     */
     public Seance(int id, int semaine, Date date, Time heure_debut, Time heure_fin, int Etat, Cours cours, TypeCours typeCours, ArrayList<String> groupes, ArrayList<String> enseignants, ArrayList<String> salles) {
         this.id = id;
         this.semaine = semaine;
@@ -45,6 +59,10 @@ public class Seance {
         
     }
     
+    /**
+     * renvoie les infos de la seance a afficher dans la JFrame
+     * @return
+     */
     public String printInfos(){
         String str = "cours :" + cours.getNom()+" type "+ typeCours.getNom()+"\n";
         str += "de "+heure_debut+" a "+heure_fin+" le "+ date+"\n";
@@ -59,7 +77,8 @@ public class Seance {
         }
         return str;
     }
-
+    
+    
     public void addEnseignant(String nom, String prenom){
         String str = nom +","+prenom;
         enseignants.add(str);
@@ -74,6 +93,7 @@ public class Seance {
         String str = nom +","+prenom;
         salles.add(str);
     }
+
     
     public int getId() {
         return id;

@@ -59,6 +59,11 @@ public class DAOEtudiant extends DAO<Etudiant>{
         return new Etudiant();
     }
     
+    /**
+     * trouve l'enseignant associé a l'utilisateur
+     * @param uti
+     * @return
+     */
     public Etudiant find(Utilisateur uti){
         Etudiant etudiant = new Etudiant();
         ResultSet result = null;
@@ -78,6 +83,10 @@ public class DAOEtudiant extends DAO<Etudiant>{
         return etudiant;
     }
     
+    /**
+     * cherche dans la BDD tous les etudiants
+     * @return
+     */
     public ArrayList<Etudiant> findAll(){
           ArrayList<Etudiant> etudiants = new ArrayList();
         ResultSet result = null;

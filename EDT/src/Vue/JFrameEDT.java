@@ -17,12 +17,14 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 
 /**
- *
+ * framme affichant l'emploie du temps pour une liste  de seances données
  * @author mathi
  */
 public class JFrameEDT extends JFrame{
@@ -35,11 +37,11 @@ public class JFrameEDT extends JFrame{
     private int column;
     
     public JFrameEDT(MyCalendar myCalendar,ArrayList<Seance> seances){
-         panel = new JPanel();
-         panelButton = new JPanel();
-         semaineSuivante = new JButton("semaineSuivante");
-         semainePrecedante = new JButton("semainePrecedante");
-         numeroWeek = new JTextArea();
+        panel = new JPanel();
+        panelButton = new JPanel();
+        semaineSuivante = new JButton("semaineSuivante");
+        semainePrecedante = new JButton("semainePrecedante");
+        numeroWeek = new JTextArea();
          GridLayout grid = new GridLayout(8,6); 
          panel.setLayout(grid);
          panelButton.add(semainePrecedante);
@@ -53,7 +55,7 @@ public class JFrameEDT extends JFrame{
     
     
     private void build(){
-        this.setTitle("EDT Etudiant");
+        this.setTitle("EDT");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(screenSize.width, screenSize.height);
         this.setLocationRelativeTo(null);
@@ -65,8 +67,6 @@ public class JFrameEDT extends JFrame{
         this.add(contenu);
         this.setVisible(true);
     }
-    
-
     /**
      *affiche dans la premiere colonne les horaires de la seance
      */
@@ -106,15 +106,12 @@ public class JFrameEDT extends JFrame{
      */
     public void afficheseance(MyCalendar mycalendar,ArrayList<Seance> seances){
         Time time = getTimeFromRow();
-        System.out.println("time " +time);
         Date date = getDateFromColumn(mycalendar);
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         String date1 = sqlDate.toString();
-        System.out.println("Date :" +sqlDate);
         for(Seance s : seances){    
             String date2 = s.getDate().toString();
             if(date2.equals(date1)&& s.getHeure_debut().equals(time)){
-                System.out.print(s.printInfos());
                 panel.add(new JTextArea(s.printInfos()));
                 column++;
                 return;
@@ -206,6 +203,14 @@ public class JFrameEDT extends JFrame{
         return null;
     }
     
+    /**
+     * ajout du menu a la frame en fonction de qui l'appelle
+     * @param menuBar
+     */
+    public void ajoutMenu(JMenuBar menuBar){
+        this.setJMenuBar(menuBar);
+    }
+    
     public JButton getSemaineSuivante() {
         return semaineSuivante;
     }
@@ -225,5 +230,7 @@ public class JFrameEDT extends JFrame{
     public JPanel getPanelButton() {
         return panelButton;
     }
+
    
+    
 }

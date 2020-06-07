@@ -39,13 +39,6 @@ public class Utilisateur {
      *
      */
     public Utilisateur(){
-        id = -1;
-    }
-    
-    public void printInfos(){
-        System.out.println("bonjour "+ nom +" " + prenom);
-        System.out.println("infos perso :" + email + " " + passwd);
-        System.out.println(" vous etes un :" + droit + " #id " + id);
     }
 
     public int getId() {

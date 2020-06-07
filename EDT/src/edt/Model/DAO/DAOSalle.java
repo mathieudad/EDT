@@ -8,7 +8,6 @@ package edt.Model.DAO;
 import edt.Model.Salle;
 import edt.Model.Seance;
 import edt.Model.Site;
-import edt.Model.Utilisateur;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -59,7 +58,12 @@ public class DAOSalle extends DAO<Salle>{
         return salle;
     }
     
-     public ArrayList<Seance> findSeances(int id_salle){
+    /**
+     * renvoie la liste des seances de cette salle
+     * @param id_salle
+     * @return
+     */
+    public ArrayList<Seance> findSeances(int id_salle){
         ArrayList<Seance> seances = new ArrayList<>();
         ResultSet result = null;
         String requete = "SELECT * FROM seance_salles WHERE Id_salle ="+ id_salle+ ";";
@@ -98,6 +102,12 @@ public class DAOSalle extends DAO<Salle>{
         return str;
     }
     
+    /**
+     * renvoie la salle en fonction du nom et du site
+     * @param nomSalle
+     * @param nomSite
+     * @return
+     */
     public Salle findFromName(String nomSalle, String nomSite){
         Salle salle = new Salle();
         ResultSet result = null;
@@ -117,6 +127,10 @@ public class DAOSalle extends DAO<Salle>{
         return salle;
     }
     
+    /**
+     * renvoie la liste de toutes les salles de la BDD
+     * @return
+     */
     public ArrayList<Salle> findAll(){
         ArrayList<Salle> salles = new ArrayList();
         ResultSet result = null;

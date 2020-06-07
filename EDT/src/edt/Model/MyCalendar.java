@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- *
+ * Classe utilisant calendar mais simplifie l'utilisation et l'appel des fonctions
  * @author mathi
  */
 public class MyCalendar {

@@ -52,47 +52,50 @@ public class DAOSeance extends DAO<Seance>{
     }
     
     public boolean createSeanceEnseignant(int id_seance, Seance seance, Statement st){
-        for(String str : seance.getEnseignants()){
+        
             try {
-                String[] s = str.split(",");
-                int id = new DAOUtilisateur(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_enseignants(Id_seance, Id_enseignant) VALUES('"+id_seance+"','"+id+"');";
-                st.executeUpdate(result);
+                for(String str : seance.getEnseignants()){
+                    String[] s = str.split(",");
+                    int id = new DAOUtilisateur(con).findFromName(s[0],s[1]).getId();
+                    String result = "INSERT INTO seance_enseignants(Id_seance, Id_enseignant) VALUES('"+id_seance+"','"+id+"');";
+                    st.executeUpdate(result);
+                }
                 return true;
             } catch (SQLException ex) {
                System.out.println("error creation seance ens");
             }
-        }
         return false;
     }
         
     public boolean createSeanceGroupe(int id_seance, Seance seance, Statement st){
-        for(String str : seance.getGroupes()){
+        
             try {
-                String[] s = str.split(",");
-                int id = new DAOGroupe(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_groupe(Id_seance, Id_groupe) VALUES('"+id_seance+"','"+id+"');";
-                st.executeUpdate(result);
+                for(String str : seance.getGroupes()){
+                    String[] s = str.split(",");
+                    int id = new DAOGroupe(con).findFromName(s[0],s[1]).getId();
+                    String result = "INSERT INTO seance_groupe(Id_seance, Id_groupe) VALUES('"+id_seance+"','"+id+"');";
+                    st.executeUpdate(result);
+                }
                 return true;
             } catch (SQLException ex) {
                System.out.println("error creation seance groupe");
             }
-        }
         return false;
     }
     
     public boolean createSeanceSalle(int id_seance, Seance seance, Statement st){
-        for(String str : seance.getSalles()){
+        
             try {
-                String[] s = str.split(",");
-                int id = new DAOSalle(con).findFromName(s[0],s[1]).getId();
-                String result = "INSERT INTO seance_salles(Id_seance, Id_salle) VALUES('"+id_seance+"','"+id+"');";
-                st.executeUpdate(result);
+                for(String str : seance.getSalles()){
+                    String[] s = str.split(",");
+                    int id = new DAOSalle(con).findFromName(s[0],s[1]).getId();
+                    String result = "INSERT INTO seance_salles(Id_seance, Id_salle) VALUES('"+id_seance+"','"+id+"');";
+                    st.executeUpdate(result);
+                }
                 return true;
             } catch (SQLException ex) {
                System.out.println("error creation seance salle");
             }
-        }
         return false;
     }
     
@@ -139,6 +142,11 @@ public class DAOSeance extends DAO<Seance>{
         return seance;
     }
     
+    /**
+     * retourne la liste des noms prenoms des enseignants de la seance
+     * @param id_seance
+     * @return
+     */
     public ArrayList<String> findEnseignants(int id_seance){
         ArrayList<String> enseignants = new ArrayList<>();
         ResultSet result = null;
@@ -159,6 +167,11 @@ public class DAOSeance extends DAO<Seance>{
         return enseignants;
     }
     
+    /**
+     * retourne la liste des groupes et promos de la seance
+     * @param id_seance
+     * @return
+     */
     public ArrayList<String> findGroupes(int id_seance){
         ArrayList<String> groupes = new ArrayList<>();
         ResultSet result = null;
@@ -178,6 +191,11 @@ public class DAOSeance extends DAO<Seance>{
         return groupes;
     }
     
+    /**
+     * retourne la liste des salles et site ou la seance ce deroule
+     * @param id_seance
+     * @return
+     */
     public ArrayList<String> findSalles(int id_seance){
         ArrayList<String> salles = new ArrayList<>();
         ResultSet result = null;

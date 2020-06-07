@@ -75,7 +75,12 @@ public class DAOGroupe extends DAO<Groupe>{
         return groupe;
     }
     
-     public ArrayList<Seance> findSeances(int id_groupe){
+    /**
+     * trouve toutes les seances pour un id Groupe donné
+     * @param id_groupe
+     * @return
+     */
+    public ArrayList<Seance> findSeances(int id_groupe){
         ArrayList<Seance> seances = new ArrayList<>();
         ResultSet result = null;
         String requete = "SELECT * FROM seance_groupe WHERE Id_groupe ="+ id_groupe+ ";";
@@ -114,6 +119,12 @@ public class DAOGroupe extends DAO<Groupe>{
         return str;
     }
     
+    /**
+     * recherche le groupe en fonction du nom et de la promo
+     * @param nomGr
+     * @param nomProm
+     * @return
+     */
     public Groupe findFromName(String nomGr, String nomProm){
         Groupe groupe = new Groupe();
         ResultSet result = null;
@@ -131,6 +142,31 @@ public class DAOGroupe extends DAO<Groupe>{
            e.printStackTrace();
         }
         return groupe;
+    }
+    
+    /**
+     * cherche tous les groupes de la base et les renvoie sous forme d'ArrayList
+     * @return
+     */
+    public ArrayList<Groupe> findAll(){
+        ArrayList<Groupe> groupes = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM Groupe";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               Promotion promo = (new DAOPromotion(con)).find(result.getInt("Id_promo"));
+               ArrayList<Seance> seances = findSeances(result.getInt("Id"));
+               Groupe groupe = new Groupe(result.getInt("Id"), result.getString("Nom"), promo, seances);
+               groupes.add(groupe);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas du tout de salles");
+           e.printStackTrace();
+        }
+        return groupes;
     }
     
 }

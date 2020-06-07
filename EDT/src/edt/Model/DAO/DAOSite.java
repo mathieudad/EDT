@@ -72,6 +72,11 @@ public class DAOSite extends DAO<Site>{
         return str;
     }
     
+    /**
+     * renvoie le site a partir de son nom
+     * @param nom
+     * @return
+     */
     public Site findFromNom(String nom){
         Site site = new Site();
         ResultSet result = null;

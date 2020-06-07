@@ -42,13 +42,10 @@ public class MainModel {
             DAOUtilisateur DAOU = new DAOUtilisateur(con);
             Utilisateur  utilisateur = DAOU.find(8);
             System.out.println("Je suis");
-            utilisateur.printInfos();
             DAOSalle daos = new DAOSalle(con);
             Salle salle = daos.find(1);
-            salle.printInfos();
             if(utilisateur.getDroit().equals("Etudiant")){
                 Etudiant etu = (new DAOEtudiant(con)).find(utilisateur);
-                etu.getGroupe().printInfos();
                 for(Seance s : etu.getGroupe().getSeances()){
                     s.printInfos();
                 }
@@ -62,7 +59,6 @@ public class MainModel {
             }
             if(utilisateur.getDroit().equals("Referant")){
                 Referant referant = new Referant(utilisateur, con);
-                referant.printInfos();
             }
         
             /*

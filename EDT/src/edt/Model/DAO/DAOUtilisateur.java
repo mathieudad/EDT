@@ -59,6 +59,12 @@ public class DAOUtilisateur extends DAO<Utilisateur>{
         return utilisateur;
     }
     
+    /**
+     * trouve un utilisateur en fonction de son nom et prenom
+     * @param nom
+     * @param prenom
+     * @return
+     */
     public Utilisateur findFromName(String nom, String prenom){
         Utilisateur utilisateur = new Utilisateur();
        
@@ -77,6 +83,13 @@ public class DAOUtilisateur extends DAO<Utilisateur>{
         return utilisateur;
     }
     
+    /**
+     * trouve un utilisateur en fonction de ses parametres de connexion
+     * @param email
+     * @param passWd
+     * @return
+     * @throws MauvaisEmailOuMdp
+     */
     public Utilisateur findFromConnexion(String email, String passWd) throws MauvaisEmailOuMdp{
         Utilisateur utilisateur = new Utilisateur();
        

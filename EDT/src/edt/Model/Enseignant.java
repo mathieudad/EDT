@@ -12,10 +12,10 @@ import java.util.ArrayList;
  * @author mathi
  */
 public class Enseignant extends Utilisateur{
-    private Cours cours;
+    private ArrayList<Cours> cours;
     private ArrayList<Seance> seances;
 
-    public Enseignant(Cours cours, ArrayList<Seance> seances, int id, String email, String passwd, String nom, String prenom, String droit) {
+    public Enseignant(ArrayList<Cours> cours, ArrayList<Seance> seances, int id, String email, String passwd, String nom, String prenom, String droit) {
         super(id, email, passwd, nom, prenom, droit);
         this.cours = cours;
         this.seances = seances;
@@ -23,10 +23,23 @@ public class Enseignant extends Utilisateur{
     
 
     public Enseignant() {
-       
     }
-
-    public Cours getCours() {
+    
+    /**
+     * infos a afficher dans la jList referant et admin pour un enseignant
+     * @return
+     */
+    public String infosPourList(){
+        return nom +" "+ prenom;
+    }
+    
+    public boolean estEnseignant(Cours cour){
+        for(Cours c : cours)
+            if(c.getId() == cour.getId())
+                return true;
+        return false;
+    }
+    public ArrayList<Cours> getCours() {
         return cours;
     }
 
@@ -34,6 +47,11 @@ public class Enseignant extends Utilisateur{
         return seances;
     }
     
+    /**
+     * recupere les seances de l'enseignant pour une semaine donnée
+     * @param week
+     * @return
+     */
     public ArrayList<Seance> getSeances(int week) {
         ArrayList<Seance> seancesWeek = new ArrayList();
         for(Seance s : seances){
@@ -42,6 +60,21 @@ public class Enseignant extends Utilisateur{
             }
         }
         return seancesWeek;
+    }
+    
+    /**
+     * retourne les seances a cette date
+     * @param date
+     * @return
+     */
+    public ArrayList<Seance> getSeances(String date){
+         ArrayList<Seance> seancesDate = new ArrayList();
+        for(Seance s : seances){
+            if(s.getDate().toString().equals(date)){
+                seancesDate.add(s);
+            }
+        }
+        return seancesDate;
     }
     
 }

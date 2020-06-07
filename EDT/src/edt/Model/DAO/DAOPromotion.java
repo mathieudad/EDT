@@ -74,6 +74,11 @@ public class DAOPromotion extends DAO<Promotion> {
         return str;
     }
     
+    /**
+     * rouver la promo a partir du nom 
+     * @param nom
+     * @return
+     */
     public Promotion findFromNom(String nom){
         Promotion promo = new Promotion();    
         ResultSet result = null;

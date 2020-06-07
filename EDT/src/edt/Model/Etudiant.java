@@ -31,6 +31,14 @@ public class Etudiant extends Utilisateur{
         this.numero = numero;
         this.groupe = groupe;
     }
+    
+    /**
+     * retourne nom et prenom a afficher dans la liste (referant et admin)
+     * @return
+     */
+    public String infosPourList(){
+        return nom +" "+ prenom;
+    }
 
     public Etudiant() {
         id = -1;
@@ -43,8 +51,6 @@ public class Etudiant extends Utilisateur{
     public Groupe getGroupe() {
         return groupe;
     }
-
-    
     
     
 }

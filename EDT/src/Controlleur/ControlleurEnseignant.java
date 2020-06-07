@@ -8,7 +8,6 @@ package Controlleur;
 import Vue.JFrameEDT;
 import edt.Model.Enseignant;
 import edt.Model.MyCalendar;
-import edt.Model.Seance;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,22 +20,29 @@ public class ControlleurEnseignant implements ActionListener{
     Enseignant enseignant;
     JFrameEDT jFrameEnseignant;
     
-    public ControlleurEnseignant(Enseignant enseignant) throws InterruptedException{
+    /**
+     * Constructeur du controlleur d'enseignant
+     * @param enseignant
+     */
+    public ControlleurEnseignant(Enseignant enseignant){
         this.enseignant =enseignant;
         myCalendar = new MyCalendar();
-        for(Seance e : enseignant.getSeances(myCalendar.getWeek())){
-            System.out.println(e.printInfos());
-        }
         jFrameEnseignant = new JFrameEDT(myCalendar, enseignant.getSeances(myCalendar.getWeek()));
         jFrameEnseignant.getSemainePrecedante().addActionListener(this);
         jFrameEnseignant.getSemaineSuivante().addActionListener(this);
     }
     
-    
+    /**
+     * Affiche l'emploie du temps dans la FrameEDT
+     */
     public void afficherEDT(){
         jFrameEnseignant.afficheEDT(myCalendar,enseignant.getSeances(myCalendar.getWeek()));
     }
 
+    /**
+     * Gere les evenements des boutons semaines suivantes et precedentes dans la Frame
+     * @param actionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
          if(actionEvent.getSource() == jFrameEnseignant.getSemaineSuivante()) {
@@ -51,5 +57,10 @@ public class ControlleurEnseignant implements ActionListener{
             afficherEDT();
         } 
      }
+
+    public JFrameEDT getjFrame() {
+        return jFrameEnseignant;
+    }
+    
     
 }

@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -55,6 +56,11 @@ public class DAOCours extends DAO<Cours> {
         return cours;
     }
     
+    /**
+     * Retourne de cours en fonction du nom
+     * @param nom
+     * @return
+     */
     public Cours findFromName(String nom){
         Cours cours = new Cours();
        ResultSet result = null;
@@ -69,6 +75,25 @@ public class DAOCours extends DAO<Cours> {
            System.err.println("error pas de cours a ce nom");
         }
         return cours;
+    }
+
+    public ArrayList<Cours> findAll() {
+       ArrayList<Cours> courss = new ArrayList();
+        ResultSet result = null;
+        String requeteUti = "SELECT * FROM Cours";
+        try {
+           Statement stmt = con.createStatement();
+           result = stmt.executeQuery(requeteUti);
+           while(result.next()){
+               Cours cours = new Cours(result.getInt("Id"), result.getString("Nom"));
+               courss.add(cours);
+            }
+           stmt.close();
+        } catch (SQLException e) {
+           System.err.println("error pas du tout de salles");
+           e.printStackTrace();
+        }
+        return courss;
     }
     
 }

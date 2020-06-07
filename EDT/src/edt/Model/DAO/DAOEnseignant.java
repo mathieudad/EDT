@@ -47,8 +47,14 @@ public class DAOEnseignant extends DAO<Enseignant>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     * Cherche l'enseignant associé a l'utilisateur donné
+     * @param uti
+     * @return
+     */
     public Enseignant find(Utilisateur uti){
         Enseignant enseignant = new Enseignant();
+        ArrayList<Cours> cours = new ArrayList();
         ResultSet result = null;
         String requete = "SELECT * FROM Enseignant WHERE Id_utilisateur=" +uti.getId()+";";
         
@@ -57,7 +63,10 @@ public class DAOEnseignant extends DAO<Enseignant>{
            result = stmt.executeQuery(requete);
            result.next();
            ArrayList<Seance> seances = findSeances(uti.getId());
-           Cours cours = new DAOCours(con).find(result.getInt("Id_cours"));
+           cours.add(new DAOCours(con).find(result.getInt("Id_cours")));
+           while(result.next()){
+               cours.add(new DAOCours(con).find(result.getInt("Id_cours")));
+           }
            enseignant = new Enseignant(cours, seances, uti.getId(), uti.getEmail(), uti.getPasswd(), uti.getNom() , uti.getPrenom(),uti.getDroit());
            stmt.close();
         } catch (SQLException e) {
@@ -69,6 +78,11 @@ public class DAOEnseignant extends DAO<Enseignant>{
        
     }
     
+    /**
+     * Trouve toutes les seances d'un enseignant donné
+     * @param id_enseignant
+     * @return
+     */
     public ArrayList<Seance> findSeances(int id_enseignant){
         ArrayList<Seance> seances = new ArrayList<>();
         ResultSet result = null;
@@ -89,6 +103,10 @@ public class DAOEnseignant extends DAO<Enseignant>{
         
     }
     
+    /**
+     * cherche tous les enseignants de la BDD
+     * @return
+     */
     public ArrayList<Enseignant> findAll(){
         ArrayList<Enseignant> enseignants = new ArrayList();
         ResultSet result = null;

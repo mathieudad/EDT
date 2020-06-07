@@ -26,7 +26,11 @@ public class ControlleurEtudiant implements ActionListener{
     Etudiant etudiant;
     JFrameEDT jFrameEtudiant;
     
-    public ControlleurEtudiant(Etudiant etudiant) throws InterruptedException{
+    /**
+     * Constructeur de controlleur d'un affichage d'emploi du temps etudiant 
+     * @param etudiant
+     */
+    public ControlleurEtudiant(Etudiant etudiant){
         this.etudiant = etudiant;
         myCalendar = new MyCalendar();
         jFrameEtudiant = new JFrameEDT(myCalendar,etudiant.getGroupe().getSeances(myCalendar.getWeek()));
@@ -34,11 +38,17 @@ public class ControlleurEtudiant implements ActionListener{
         jFrameEtudiant.getSemaineSuivante().addActionListener(this);
     }
     
-    
+    /**
+     * Appelle la Jframe de l'emploie du temps d'un etudiant
+     */
     public void afficherEDT(){
         jFrameEtudiant.afficheEDT(myCalendar,etudiant.getGroupe().getSeances(myCalendar.getWeek()));
     }
 
+    /**
+     * Gere les evenements des boutons semaines suivantes et precedentes dans la Frame
+     * @param actionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
          if(actionEvent.getSource() == jFrameEtudiant.getSemaineSuivante()) {
@@ -53,6 +63,10 @@ public class ControlleurEtudiant implements ActionListener{
             afficherEDT();
         } 
      }
+
+    public JFrameEDT getjFrame() {
+        return jFrameEtudiant;
+    }
     
 }
     
