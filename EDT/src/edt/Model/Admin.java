@@ -54,6 +54,11 @@ public class Admin extends Referant{
         return null;
     }
     
+    /**
+     * Trouve le groupe a ce nom
+     * @param name
+     * @return
+     */
     public Groupe findGroupeFromName(String name){
         for(Groupe g : groupes){
             String gr = g.getNom() +" "+ g.getPromo().getNom();
@@ -63,7 +68,12 @@ public class Admin extends Referant{
         return null;
     }
     
-     public TypeCours findTypeCoursFromName(String name) {
+    /**
+     * trouve le type de cours a ce nom
+     * @param name
+     * @return
+     */
+    public TypeCours findTypeCoursFromName(String name) {
         for(TypeCours tc : typesCours){
             if(tc.getNom().equals(name))
                 return tc;
@@ -71,7 +81,12 @@ public class Admin extends Referant{
         return null;
     }
      
-     public Salle findSalleFromName(String name) {
+    /**
+     * Selectionne la salle a ce nom
+     * @param name
+     * @return
+     */
+    public Salle findSalleFromName(String name) {
        for(Salle s : salles){
             String sa = s.getNom() +" "+ s.getSite().getNom();
             if(sa.equals(name))
@@ -80,7 +95,14 @@ public class Admin extends Referant{
         return null;
         }
     
-     public ArrayList<String> selectSeances(String dateString, ArrayList<Enseignant> enseignants, ArrayList<Groupe> groupes) {
+    /**
+     * Selectionne les seances dispo en fonction des profs eleves et de la date
+     * @param dateString
+     * @param enseignants
+     * @param groupes
+     * @return
+     */
+    public ArrayList<String> selectSeances(String dateString, ArrayList<Enseignant> enseignants, ArrayList<Groupe> groupes) {
         ArrayList<String> times = new ArrayList();
         ArrayList<String> mauvaisTemps = new ArrayList();
         for(Enseignant e : enseignants){
@@ -125,23 +147,36 @@ public class Admin extends Referant{
         return times;
     }
     
+    /**
+     * Selectionne les salles dispo en fonction de la date et de l'heure de debut
+     * @param date
+     * @param heureDebut
+     * @return
+     */
     public ArrayList<Salle> salleDispo(String date, Time heureDebut){
         ArrayList<Salle> sallesDispo = new ArrayList();
+        ArrayList<Salle> mauvaisesSalles = new ArrayList();
         for(Salle s : salles){
             sallesDispo.add(s);
         }
+        
         for(Salle s : salles){
             for(Seance se : s.getSeances(date)){
-                Iterator<Salle> salleI = sallesDispo.iterator();
-                while(salleI.hasNext()){
-                    Salle sa = salleI.next();
                     if(se.getHeure_debut().equals(heureDebut))
-                        salleI.remove();
-                }
+                        mauvaisesSalles.add(s);
             }
-        }
-        return sallesDispo;
+       }
+        
+    Iterator<Salle> salleI = sallesDispo.iterator();
+    for(Salle s : mauvaisesSalles){
+         while(salleI.hasNext()){
+                Salle t = salleI.next();
+                if(t.equals(s))
+                    salleI.remove();
+                }
     }
+    return sallesDispo;
+   }
     
     
     
@@ -187,6 +222,8 @@ public class Admin extends Referant{
         int capaTotaleSalle =0;
         for (Salle s : sa)
             capaTotaleSalle += s.getCapacite();
+        System.out.println(capaTotaleSalle +" ");
+        System.out.println(nombreTotalEtu +" ");
         if(capaTotaleSalle>= nombreTotalEtu)
             return true;
         return false;

@@ -78,6 +78,7 @@ public class JFrameAdmin extends JFrame{
         menuBar.add(consulter);
         menuBar.add(ajouter);
         menuBar.add(modifier);
+        panel.add(new JLabel("Bienvenu vous etes adminitrateur"));
         this.setJMenuBar(menuBar);
         build();
     }
@@ -160,8 +161,8 @@ public class JFrameAdmin extends JFrame{
         repaint();
         Vector<String> str = affichageBoxEnseignant(enseignants);
         boxEnseignant2 = new JComboBox(str);
-        panel.add(boxEnseignant1);
-        panel.add(enseignantButton);
+        panel.add(boxEnseignant2);
+        panel.add(enseignantButton2);
         panel.add(skipEnseignantButton);
         this.add(panel);
         this.setVisible(true);
@@ -247,6 +248,27 @@ public class JFrameAdmin extends JFrame{
         JLabel j = new JLabel("Jour (ex 01): ");
         JLabel m = new JLabel("Mois (ex 01): ");
         JLabel a = new JLabel("Année (ex 2020): ");
+        panel.add(j);
+        panel.add(jour);
+        panel.add(m);
+        panel.add(mois);
+        panel.add(a);
+        panel.add(annee);
+        panel.add(dateButton);
+        this.add(panel);
+        this.setVisible(true);
+        
+    }
+    public void etape4AjoutMauvaiseDate(){
+        panel.removeAll();
+        repaint();
+        panel.add(new JLabel("Date invalide"));
+        JLabel j = new JLabel("Jour (ex 01): ");
+        JLabel m = new JLabel("Mois (ex 01): ");
+        JLabel a = new JLabel("Année (ex 2020): ");
+        jour.setText("");
+        mois.setText("");
+        annee.setText("");
         panel.add(j);
         panel.add(jour);
         panel.add(m);

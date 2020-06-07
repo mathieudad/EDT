@@ -64,17 +64,20 @@ public class Seance {
      * @return
      */
     public String printInfos(){
-        String str = "cours :" + cours.getNom()+" type "+ typeCours.getNom()+"\n";
+        String str = "cours : " + cours.getNom()+" type "+ typeCours.getNom()+"\n";
         str += "de "+heure_debut+" a "+heure_fin+" le "+ date+"\n";
         for(String e : enseignants){
-            str += e +"\n";
+            str += e +" - ";
         }
+        str+="\n";
         for(String e : salles){
-            str += e +"\n";
+            str += e +" - ";
         }
+        str+="\n";
         for(String e : groupes){
-            str += e+"\n";
+            str += e+" - ";
         }
+        
         return str;
     }
     

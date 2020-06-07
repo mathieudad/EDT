@@ -15,6 +15,7 @@ import edt.Model.MyCalendar;
 import edt.Model.Salle;
 import edt.Model.Seance;
 import edt.Model.TypeCours;
+import edt.Model.Utilisateur;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -22,7 +23,9 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -245,10 +248,12 @@ public class ControlleurAdmin implements ActionListener{
             String mois = jFrameAdmin.getMois().getText();
             String annee = jFrameAdmin.getAnnee().getText();
             dateString = annee +"-"+mois+"-"+jour;
-            System.out.println(dateString);
-            ArrayList<String> timePourSeance = admin.selectSeances(dateString, enseignants, groupes);
-            
-            jFrameAdmin.etape5Ajout(timePourSeance);
+            if(mauvaiseDate(dateString)){
+                jFrameAdmin.etape4AjoutMauvaiseDate();
+            }else{
+                ArrayList<String> timePourSeance = admin.selectSeances(dateString, enseignants, groupes);   
+                jFrameAdmin.etape5Ajout(timePourSeance);
+            }
         }
         // on ajoute l'heure du debut de la sance et calcule l'heure de fin
         if(actionEvent.getSource() == jFrameAdmin.getTimeButton()){
@@ -272,11 +277,11 @@ public class ControlleurAdmin implements ActionListener{
                 ArrayList<Salle> dispo = admin.salleDispo(dateString,heure_debut);
                 ArrayList<Salle> sabis = new ArrayList();
                 for(Salle s : dispo){
-                for(Salle s2 : salles)
-                    if(s.getId() != s2.getId()){
-                        sabis.add(s);
+                    for(Salle s2 : salles)
+                        if(s.getId() != s2.getId()){
+                            sabis.add(s);
+                    }
                 }
-            }
                 jFrameAdmin.etape6BisAjout(salles);
             }
         }
@@ -313,11 +318,32 @@ public class ControlleurAdmin implements ActionListener{
 
         Connection con = connecterPourAjouter();
         new DAOSeance(con).create(nouvelleSeance);
+        Utilisateur adm = new Utilisateur(admin.getId(),admin.getEmail(),admin.getPasswd(),admin.getNom(),admin.getPrenom(),admin.getDroit());
+        admin = new Admin(adm, con);
         try {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(ControlleurAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    /**
+     * Retourne true si la date entrée est invalide
+     * @param dateString
+     * @return
+     */
+    public boolean mauvaiseDate(String dateString){
+        try{
+            Date d = Date.valueOf(dateString);
+            
+            if(d.compareTo(Calendar.getInstance().getTime())<0){
+                return true;
+            }
+                
+        }catch(IllegalArgumentException e){
+            return true;
+        }
+        return false;
     }
     
     /**
